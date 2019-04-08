@@ -1,9 +1,9 @@
-package practiceone.secondtask;
+package practiceone.secondtask.controllers;
 
 import java.io.*;
 
 public class ReaderFromFile implements AutoCloseable {
-    private String variablePartOfPath = "D:\\J20";
+    private String variablePartOfPath = "C:\\Тампашев\\РАЗНОЕ\\labs\\DEV-J20-PracticeOne";
     private String absolutePath = variablePartOfPath + "\\src\\main\\java\\resources\\students.xml";
     BufferedReader reader;
 
@@ -25,12 +25,6 @@ public class ReaderFromFile implements AutoCloseable {
     }
 
     public static void main(String[] args) {
-        try {
-            ReaderFromFile readerFromFile = new ReaderFromFile();
-            readerFromFile.readElement();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

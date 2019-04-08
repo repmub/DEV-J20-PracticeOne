@@ -1,24 +1,26 @@
-package practiceone.secondtask;
+package practiceone.secondtask.controllers;
 
 import practiceone.secondtask.Models.Student;
 import practiceone.secondtask.Models.UniversityInfo;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class University {
-    private List<Student> students;
+public class LoaderOfStudentList {
 
-    public University() throws IOException {
-        students = new ArrayList<>();
+    public List<Student> loadStudentList() throws IOException {
+        List<Student> students = new ArrayList<>();
 
         try (ReaderFromFile reader = new ReaderFromFile()){
-            while (reader.ready())
-                students.add(makeStudent(reader));
+            while (reader.ready()) {
+                if (reader.readElement().matches("<student>"))
+                    students.add(makeStudent(reader));
+            }
         }
+        return students;
     }
 
     private Student makeStudent(ReaderFromFile reader) throws IOException {
@@ -27,7 +29,7 @@ public class University {
         Map<String, Integer> grades = new HashMap<>();
         String currentElement;
 
-        while (!((currentElement = reader.readElement()).matches("</student>"))){
+        while (!(currentElement = reader.readElement()).matches("</student>")){
 
             if (currentElement.matches("<lastName>.+")) {
                 lastName = getContent(currentElement);
@@ -47,17 +49,17 @@ public class University {
             }
             if (currentElement.matches("<math>.+")) {
                 Integer grade = Integer.parseInt(getContent(currentElement));
-                grades.put("Math", grade);
+                grades.put("math", grade);
                 continue;
             }
             if (currentElement.matches("<physics>.+")) {
                 Integer grade = Integer.parseInt(getContent(currentElement));
-                grades.put("Physics", grade);
+                grades.put("physics", grade);
                 continue;
             }
             if (currentElement.matches("<history>.+")) {
                 Integer grade = Integer.parseInt(getContent(currentElement));
-                grades.put("History", grade);
+                grades.put("history", grade);
             }
         }
         UniversityInfo info = new UniversityInfo(course, group, grades);
@@ -66,10 +68,5 @@ public class University {
 
     private String getContent(String element){
         return element.replaceAll("<[^>]+>", "");
-    }
-
-    public static void main(String[] args) throws IOException { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        University university = new University();
-        System.out.println(university);
     }
 }

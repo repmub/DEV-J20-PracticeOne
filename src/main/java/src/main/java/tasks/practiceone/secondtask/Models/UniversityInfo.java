@@ -16,4 +16,12 @@ public class UniversityInfo {
     public int getCourse() {
         return course;
     }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public Map<String, Integer> getGrades() {
+        return grades;
+    }
 }

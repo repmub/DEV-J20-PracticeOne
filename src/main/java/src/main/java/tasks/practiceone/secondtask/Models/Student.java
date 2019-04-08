@@ -30,4 +30,21 @@ public class Student implements Comparable<Student>{
     public String getLastName() {
         return lastName;
     }
+
+    public int getGroup(){
+        return universityInfo.getGroup();
+    }
+
+    public Map<String, Integer> getGrades() {
+        return universityInfo.getGrades();
+    }
+
+    public int getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return lastName + " " + yearOfBirth;
+    }
 }
